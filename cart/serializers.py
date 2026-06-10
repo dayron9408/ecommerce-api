@@ -134,11 +134,21 @@ class CartSummaryItemSerializer(serializers.Serializer):
     product_id = serializers.UUIDField()
     product_name = serializers.CharField()
     product_sku = serializers.CharField()
-    product_image = serializers.URLField(allow_null=True, allow_blank=True)
+    product_image = serializers.SerializerMethodField()
     product_stock = serializers.IntegerField()
     quantity = serializers.IntegerField()
     unit_price = serializers.DecimalField(max_digits=9, decimal_places=2)
     subtotal = serializers.DecimalField(max_digits=9, decimal_places=2)
+
+    def get_product_image(self, obj) -> str | None:
+        """Devuelve la URL absoluta de la imagen, o None si no tiene."""
+        url = obj.get('product_image')
+        if not url:
+            return None
+        request = self.context.get('request')
+        if request:
+            return request.build_absolute_uri(url)
+        return url
 
 
 class CartSummarySerializer(serializers.Serializer):

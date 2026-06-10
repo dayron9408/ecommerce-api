@@ -96,7 +96,7 @@ class CartDetailView(CartBaseView):
         """Obtiene el carrito con items."""
         identifier = self._get_identifier(request)
         summary = CartService.get_cart_summary(**identifier)
-        serializer = CartSummarySerializer(summary)
+        serializer = CartSummarySerializer(summary, context={'request': request})
         return Response(serializer.data)
 
     @extend_schema(
@@ -151,7 +151,7 @@ class AddToCartView(CartBaseView):
         # Retornar el resumen actualizado del carrito
         summary = CartService.get_cart_summary(**identifier)
         return Response(
-            CartSummarySerializer(summary).data,
+            CartSummarySerializer(summary, context={'request': request}).data,
             status=status.HTTP_201_CREATED,
         )
 
@@ -191,7 +191,7 @@ class CartItemDetailView(CartBaseView):
         # Retornar resumen actualizado
         identifier = self._get_identifier(request)
         summary = CartService.get_cart_summary(**identifier)
-        return Response(CartSummarySerializer(summary).data)
+        return Response(CartSummarySerializer(summary, context={'request': request}).data)
 
     @extend_schema(
         summary='Eliminar item del carrito',
@@ -210,4 +210,4 @@ class CartItemDetailView(CartBaseView):
 
         identifier = self._get_identifier(request)
         summary = CartService.get_cart_summary(**identifier)
-        return Response(CartSummarySerializer(summary).data)
+        return Response(CartSummarySerializer(summary, context={'request': request}).data)
