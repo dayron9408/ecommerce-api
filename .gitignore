@@ -19,6 +19,9 @@ env/
 *.sqlite3
 db.sqlite3
 
+# Media files (uploaded by users)
+media/
+
 # Static files
 staticfiles/
 
