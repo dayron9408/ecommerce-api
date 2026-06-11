@@ -7,6 +7,7 @@ drf-spectacular>=0.29,<0.30
 djangorestframework-simplejwt>=5,<6
 gunicorn>=26,<27
 Pillow>=11,<12
+whitenoise>=6,<7
 
 # === Database ===
 psycopg[binary]>=3.2,<4

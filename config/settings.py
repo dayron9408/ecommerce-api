@@ -42,6 +42,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.gzip.GZipMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # Static files en produccion
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',  # CORS antes de CommonMiddleware
     'django.middleware.common.CommonMiddleware',
@@ -137,6 +138,10 @@ USE_TZ = True
 # =============================================================================
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+# WhiteNoise para servir archivos estáticos en producción (Railway, Render, etc.)
+# Comprime y cachea archivos estáticos automáticamente
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # =============================================================================
 # MEDIA FILES (Uploaded files - product images, etc.)
