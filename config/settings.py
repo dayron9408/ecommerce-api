@@ -318,5 +318,10 @@ LOGGING = {
             'level': 'INFO',
             'propagate': False,
         },
+        'users': {
+            'handlers': ['console', 'file'],
+            'level': 'INFO',
+            'propagate': False,
+        },
     },
 }
